@@ -1,5 +1,6 @@
-import client from "../client";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import client from "../client";
 
 export default {
     Mutation: {
@@ -41,7 +42,7 @@ export default {
             const user = await client.user.findFirst({ where: { username }});
             if(!user) {
                 return {
-                    ok: fals,
+                    ok: false,
                     error: "User not found.",
                 };
             }
@@ -52,6 +53,11 @@ export default {
                     error: "Incorrect password."
                 };
             }
+            const token = await jwt.sign({ id: user.id }, process.env.SECRET_KEY);
+            return {
+                ok: true,
+                token,
+            };
         },
     },
 };
