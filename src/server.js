@@ -1,6 +1,5 @@
-import {ApolloServer} from "apollo-server-express";
-
 require("dotenv").config();
+import {ApolloServer} from "apollo-server-express";
 import express from "express";
 import logger from "morgan";
 import {typeDefs, resolvers} from "./schema";
@@ -22,6 +21,6 @@ app.use(logger("tiny"));
 apollo.applyMiddleware({ app });
 app.use("/static", express.static("uploads"));
 
-apollo.listen(PORT).then(() =>
+app.listen((PORT), () =>
     console.log(`🚀Server is running on http://localhost:${PORT} ✅`)
 );
