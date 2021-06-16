@@ -25,9 +25,6 @@ export default {
                     }
                 })
             }
-
-            // save the photo WITH parsed hashtags
-            // add the photo to the hashtags
         })
     }
 }
