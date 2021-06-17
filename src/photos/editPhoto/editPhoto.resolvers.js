@@ -1,16 +1,22 @@
 import {protectResolver} from "../../users/users.utils";
 import client from "../../client";
+import {processhashtags} from "../photos.utils";
 
 export default {
     Mutation: {
         editPhoto: protectResolver(async (_, {id, caption}, {loggedInUser}) => {
-            const ok = await client.photo.findFirst({
+            const oldPhoto = await client.photo.findFirst({
                 where: {
                     id,
                     userId: loggedInUser.id
+                },
+                include: {
+                    hashtags: {
+                        select: { hashtags: true }
+                    }
                 }
             });
-            if(!ok) {
+            if(!oldPhoto) {
                 return {
                     ok: false,
                     error: "Photo not found."
@@ -21,7 +27,11 @@ export default {
                     id
                 },
                 data: {
-                    caption
+                    caption,
+                    hashtags: {
+                        disconnect: oldPhoto.hashtags,
+                        connectOrCreate: processhashtags(caption)
+                    }
                 }
             });
 
