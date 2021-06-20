@@ -1,5 +1,5 @@
 export default {
-    comment: {
+    Comment: {
         isMine: ({userId}, _, {loggedInUser}) => {
             if(!loggedInUser) {
                 return false;

@@ -7,17 +7,16 @@ export default gql`
         lastName: String
         username: String!
         email: String!
+        createdAt: String!
+        updatedAt: String!
         bio: String
         avatar: String
+        photos: [Photo]
         following: [User]
         followers: [User]
         totalFollowing: Int!
         totalFollowers: Int!
         isMe: Boolean!
         isFollowing: Boolean!
-        createdAt: String!
-        updatedAt: String!
     }
 `;
-
-

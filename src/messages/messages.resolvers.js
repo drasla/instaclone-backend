@@ -4,7 +4,7 @@ export default {
     Room: {
         users: ({id}) => client.room.findUnique({ where: { id }}).users(),
         messages: ({id}) => client.message.findMany({ where: { roomId: id}}),
-        unreadTotals: ({id}, _, { loggedInUser }) => {
+        unreadTotal: ({id}, _, { loggedInUser }) => {
             if(!loggedInUser) {
                 return 0;
             }
